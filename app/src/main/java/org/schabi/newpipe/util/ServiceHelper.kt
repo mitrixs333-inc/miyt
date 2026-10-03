@@ -87,18 +87,12 @@ object ServiceHelper {
 
     @JvmStatic
     fun getSelectedServiceId(context: Context): Int {
-        return (getSelectedService(context) ?: DEFAULT_FALLBACK_SERVICE).serviceId
+        return ServiceList.YouTube.serviceId
     }
 
     @JvmStatic
-    fun getSelectedService(context: Context): StreamingService? {
-        val serviceName: String = PreferenceManager.getDefaultSharedPreferences(context)
-            .getStringSafe(
-                context.getString(R.string.current_service_key),
-                context.getString(R.string.default_service_value)
-            )
-
-        return runCatching { NewPipe.getService(serviceName) }.getOrNull()
+    fun getSelectedService(context: Context): StreamingService {
+        return ServiceList.YouTube
     }
 
     @JvmStatic

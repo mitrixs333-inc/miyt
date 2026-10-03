@@ -24,9 +24,9 @@
 
     <!-- Light Theme -->
     <style name="Base.V21.LightTheme" parent="Base">
-        <item name="colorPrimary">@color/light_youtube_primary_color</item>
-        <item name="colorPrimaryDark">@color/light_youtube_primary_color</item>
-        <item name="colorAccent">@color/light_youtube_accent_color</item>
+        <item name="colorPrimary">#FFFFFF</item>
+        <item name="colorPrimaryDark">#FFFFFF</item>
+        <item name="colorAccent">#212121</item>
         <item name="android:windowBackground">@color/light_background_color</item>
         <item name="windowBackground">@color/light_background_color</item>
 
@@ -72,6 +72,9 @@
 
     <!-- Black Theme -->
     <style name="Base.V21.BlackTheme" parent="DarkTheme">
+        <item name="colorPrimary">#000000</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">#FFFFFF</item>
         <item name="android:windowBackground">@color/black_background_color</item>
         <item name="windowBackground">@color/black_background_color</item>
 

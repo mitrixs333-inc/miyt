@@ -39,8 +39,8 @@ configure<ApplicationExtension> {
     namespace = NEWPIPE_APPLICATION_ID_OLD
 
     defaultConfig {
-        applicationId = NEWPIPE_APPLICATION_ID_OLD
-        resValue("string", "app_name", "NewPipe")
+        applicationId = "com.mitrixs.miyt"
+        resValue("string", "app_name", "MIYT")
         minSdk {
             version = release(NEWPIPE_VERSION_SDK_MIN)
         }
@@ -63,10 +63,10 @@ configure<ApplicationExtension> {
             // suffix the app id and the app name with git branch name
             if (normalizedWorkingBranch.isEmpty() || workingBranch in defaultBranches) {
                 applicationIdSuffix = ".debug"
-                resValue("string", "app_name", "NewPipe Debug")
+                resValue("string", "app_name", "MIYT Debug")
             } else {
                 applicationIdSuffix = ".debug.$normalizedWorkingBranch"
-                resValue("string", "app_name", "NewPipe $workingBranch")
+                resValue("string", "app_name", "MIYT $workingBranch")
             }
         }
 

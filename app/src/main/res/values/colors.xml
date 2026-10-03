@@ -12,7 +12,7 @@
     <!-- Light Theme -->
     <color name="light_background_color">#FFFFFF</color>
     <color name="light_dialog_background_color">#FFFFFF</color>
-    <color name="light_settings_accent_color">#000000</color>
+    <color name="light_settings_accent_color">#212121</color>
     <color name="light_separator_color">#32000000</color>
     <color name="light_ripple_color">#48868686</color>
     <color name="light_selected_color">#2a868686</color>
@@ -43,11 +43,11 @@
     <!-- Black / AMOLED Theme -->
     <color name="black_background_color">#000000</color>
     <color name="black_settings_accent_color">#FFFFFF</color>
-    <color name="black_separator_color">#1effffff</color>
+    <color name="black_separator_color">#33FFFFFF</color>
     <color name="black_contrast_background_color">#000000</color>
     <color name="black_card_item_background_color">#000000</color>
     <color name="black_card_item_contrast_color">#000000</color>
-    <color name="black_border_color">#25FFFFFF</color>
+    <color name="black_border_color">#33FFFFFF</color>
 
     <!-- Neumorphism Theme Colors -->
     <color name="neumorphism_background_color">#E3E7EE</color>
