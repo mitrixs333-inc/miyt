@@ -39,6 +39,7 @@ public final class PlaylistDownloadHelper {
 
     public static void downloadPlaylistItems(@NonNull final Context context,
                                              @NonNull final List<PlaylistItemDownloadEntry> items,
+                                             final String playlistTitle,
                                              final int qualityOptionIndex,
                                              final boolean startPaused,
                                              final StoredDirectoryHelper mainStorageVideo,
@@ -48,13 +49,18 @@ public final class PlaylistDownloadHelper {
         }
 
         final boolean isAudioOption = qualityOptionIndex >= 6;
-        final StoredDirectoryHelper mainStorage = isAudioOption
+        final StoredDirectoryHelper baseStorage = isAudioOption
                 ? mainStorageAudio : mainStorageVideo;
 
-        if (mainStorage == null) {
+        if (baseStorage == null) {
             Toast.makeText(context, R.string.no_dir_yet, Toast.LENGTH_LONG).show();
             return;
         }
+
+        final boolean hasTitle = playlistTitle != null && !playlistTitle.isEmpty();
+        final StoredDirectoryHelper playlistStorage = hasTitle
+                ? baseStorage.createSubdirectory(playlistTitle)
+                : baseStorage;
 
         final String toastMsg = context.getString(
                 startPaused ? R.string.download_added_to_queue : R.string.download_has_started);
@@ -65,8 +71,8 @@ public final class PlaylistDownloadHelper {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                            info -> processAndStartDownload(context, info, qualityOptionIndex,
-                                    startPaused, mainStorage),
+                            info -> processAndStartDownload(context, info, playlistTitle,
+                                    qualityOptionIndex, startPaused, playlistStorage),
                             throwable -> Log.e(TAG, "Error fetching info for "
                                     + entry.getUrl(), throwable)
                     );
@@ -75,6 +81,7 @@ public final class PlaylistDownloadHelper {
 
     private static void processAndStartDownload(@NonNull final Context context,
                                                 @NonNull final StreamInfo info,
+                                                final String playlistTitle,
                                                 final int qualityOptionIndex,
                                                 final boolean startPaused,
                                                 @NonNull final StoredDirectoryHelper mainStorage) {
@@ -132,7 +139,12 @@ public final class PlaylistDownloadHelper {
                 }
             }
 
-            String filename = FilenameUtils.createFilename(context, info.getName()) + ".";
+            String displayTitle = info.getName();
+            if (playlistTitle != null && !playlistTitle.isEmpty()) {
+                displayTitle = "[" + playlistTitle + "] " + info.getName();
+            }
+
+            String filename = FilenameUtils.createFilename(context, displayTitle) + ".";
             final String mime;
             final MediaFormat format = selectedStream.getFormat();
             if (format != null) {

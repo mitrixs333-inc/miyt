@@ -171,7 +171,7 @@
     <string name="youtube_restricted_mode_enabled_summary">YouTube provides a \"Restricted Mode\" which hides potentially mature content</string>
     <string name="restricted_video">This video is age restricted.\n\nTurn on \"%1$s\" in the settings if you want to see it.</string>
     <string name="restricted_video_no_stream">This video is age-restricted.
-\nDue to new YouTube policies with age-restricted videos, NewPipe cannot access any of its video streams and thus is unable to play it.</string>
+\nDue to new YouTube policies with age-restricted videos, MIYT cannot access any of its video streams and thus is unable to play it.</string>
     <string name="duration_live">Live</string>
     <string name="downloads">Downloads</string>
     <string name="downloads_title">Downloads</string>
@@ -197,10 +197,10 @@
     <string name="just_once">Just Once</string>
     <string name="file">File</string>
     <string name="notifications">Notifications</string>
-    <string name="notification_channel_name">NewPipe notification</string>
-    <string name="notification_channel_description">Notifications for NewPipe\'s player</string>
+    <string name="notification_channel_name">MIYT notification</string>
+    <string name="notification_channel_description">Notifications for MIYT\'s player</string>
     <string name="app_update_notification_channel_name">App update notification</string>
-    <string name="app_update_notification_channel_description">Notifications for new NewPipe versions</string>
+    <string name="app_update_notification_channel_description">Notifications for new MIYT versions</string>
     <string name="hash_channel_name">Video hash notification</string>
     <string name="hash_channel_description">Notifications for video hashing progress</string>
     <string name="streams_notification_channel_name">New streams</string>
@@ -217,7 +217,7 @@
     <string name="recaptcha_cookies_cleared">reCAPTCHA cookies have been cleared</string>
     <string name="import_data_summary">Overrides your current history, subscriptions, playlists and (optionally) settings</string>
     <string name="export_data_summary">Export history, subscriptions, playlists and settings</string>
-    <string name="clear_cookie_summary">Clear cookies that NewPipe stores when you solve a reCAPTCHA</string>
+    <string name="clear_cookie_summary">Clear cookies that MIYT stores when you solve a reCAPTCHA</string>
     <string name="clear_views_history_title">Clear watch history</string>
     <string name="clear_views_history_summary">Deletes the history of played streams and the playback positions</string>
     <string name="delete_view_history_alert">Delete entire watch history?</string>
@@ -263,7 +263,7 @@
     <string name="permission_display_over_apps_message">In order to use the Popup Player, please select %1$s in the following Android settings menu and enable %2$s.</string>
     <string name="permission_display_over_apps_permission_name">“Allow display over other apps”</string>
     <!-- error activity -->
-    <string name="error_report_notification_title">NewPipe encountered an error, tap to report</string>
+    <string name="error_report_notification_title">MIYT encountered an error, tap to report</string>
     <string name="error_report_notification_toast">An error occurred, see the notification</string>
     <string name="sorry_string">Sorry, that should not have happened.</string>
     <string name="error_report_button_text">Report via e-mail</string>
@@ -347,7 +347,7 @@
     <string name="msg_name">Filename</string>
     <string name="msg_threads">Threads</string>
     <string name="msg_error">Error</string>
-    <string name="msg_running">NewPipe Downloading</string>
+    <string name="msg_running">MIYT Downloading</string>
     <string name="msg_running_detail">Tap for details</string>
     <string name="msg_calculating_hash">Calculating hash</string>
     <string name="msg_wait">Please wait…</string>
@@ -371,7 +371,7 @@
     <string name="charset_letters_and_digits">Letters and digits</string>
     <string name="charset_most_special_characters">Most special characters</string>
     <!-- About -->
-    <string name="title_activity_about">About NewPipe</string>
+    <string name="title_activity_about">About MIYT</string>
     <string name="title_licenses">Third-party Licenses</string>
     <string name="copyright">© %1$s by %2$s under %3$s</string>
     <string name="tab_about">About \u0026 FAQ</string>
@@ -381,15 +381,15 @@
     <string name="contribution_encouragement">Whether you have ideas of; translation, design changes, code cleaning, or real heavy code changes—help is always welcome. The more is done the better it gets!</string>
     <string name="view_on_github">View on GitHub</string>
     <string name="donation_title">Donate</string>
-    <string name="donation_encouragement">NewPipe is developed by volunteers spending their free time bringing you the best user experience. Give back to help developers make NewPipe even better while they enjoy a cup of coffee.</string>
+    <string name="donation_encouragement">MIYT is developed by volunteers spending their free time bringing you the best user experience.</string>
     <string name="give_back">Give back</string>
     <string name="website_title">Website</string>
-    <string name="website_encouragement">Visit the NewPipe Website for more info and news.</string>
-    <string name="privacy_policy_title">NewPipe\'s Privacy Policy</string>
-    <string name="privacy_policy_encouragement">The NewPipe project takes your privacy very seriously. Therefore, the app does not collect any data without your consent.\nNewPipe\'s privacy policy explains in detail what data is sent and stored when you send a crash report.</string>
+    <string name="website_encouragement">Visit the MIYT Website for more info and news.</string>
+    <string name="privacy_policy_title">MIYT\'s Privacy Policy</string>
+    <string name="privacy_policy_encouragement">The MIYT project takes your privacy very seriously. Therefore, the app does not collect any data without your consent.\nMIYT\'s privacy policy explains in detail what data is sent and stored when you send a crash report.</string>
     <string name="read_privacy_policy">Read privacy policy</string>
-    <string name="app_license_title">NewPipe\'s License</string>
-    <string name="app_license">NewPipe is copyleft libre software: You can use, study, share, and improve it at will. Specifically you can redistribute and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</string>
+    <string name="app_license_title">MIYT\'s License</string>
+    <string name="app_license">MIYT is copyleft libre software: You can use, study, share, and improve it at will.</string>
     <string name="read_full_license">Read license</string>
     <string name="faq_title">Frequently asked questions</string>
     <string name="faq_description">If you are having trouble using the app, be sure to check out these answers to common questions!</string>
@@ -594,7 +594,7 @@
     <string name="updates_setting_title">Updates</string>
     <string name="updates_setting_description">Show a notification to prompt app update when a new version is available</string>
     <string name="check_for_updates">Check for updates</string>
-    <string name="auto_update_check_description">NewPipe can automatically check for new versions from time to time and notify you once they are available.\nDo you want to enable this?</string>
+    <string name="auto_update_check_description">MIYT can automatically check for new versions from time to time and notify you once they are available.\nDo you want to enable this?</string>
     <string name="manual_update_title" translatable="false">@string/check_for_updates</string>
     <string name="manual_update_description">Manually check for new versions</string>
 
@@ -619,8 +619,8 @@
     <string name="low_quality_smaller">Low quality (smaller)</string>
     <string name="dont_show">Don\'t show</string>
     <!-- App update notification -->
-    <string name="app_update_unavailable_toast">You are running the latest version of NewPipe</string>
-    <string name="app_update_available_notification_title">NewPipe update is available!</string>
+    <string name="app_update_unavailable_toast">You are running the latest version of MIYT</string>
+    <string name="app_update_available_notification_title">MIYT update is available!</string>
     <string name="app_update_available_notification_text">Tap to download %s</string>
     <string name="missions_header_finished">Finished</string>
     <string name="missions_header_pending">Pending</string>
@@ -660,7 +660,7 @@
     <string name="error_http_unsupported_range">The server does not accept multi-threaded downloads, retry with @string/msg_threads = 1</string>
     <string name="error_http_not_found">Not found</string>
     <string name="error_postprocessing_failed">Post-processing failed</string>
-    <string name="error_postprocessing_stopped">NewPipe was closed while working on the file</string>
+    <string name="error_postprocessing_stopped">MIYT was closed while working on the file</string>
     <string name="error_insufficient_storage">Not enough free space on device</string>
     <string name="error_insufficient_storage_left">No space left on device</string>
     <string name="error_progress_lost">Progress lost, because the file was deleted</string>

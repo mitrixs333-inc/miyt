@@ -306,17 +306,10 @@ public class MainActivity extends AppCompatActivity {
             kioskMenuItemId++;
         }
 
-        //Settings and About
+        //Settings
         drawerLayoutBinding.navigation.getMenu()
                 .add(R.id.menu_options_about_group, ITEM_ID_SETTINGS, ORDER, R.string.settings)
                 .setIcon(R.drawable.ic_settings);
-        drawerLayoutBinding.navigation.getMenu()
-                .add(R.id.menu_options_about_group, ITEM_ID_DONATION, ORDER,
-                        R.string.donation_title)
-                .setIcon(R.drawable.volunteer_activism_ic);
-        drawerLayoutBinding.navigation.getMenu()
-                .add(R.id.menu_options_about_group, ITEM_ID_ABOUT, ORDER, R.string.tab_about)
-                .setIcon(R.drawable.ic_info_outline);
     }
 
     private boolean drawerItemSelected(final MenuItem item) {
@@ -399,7 +392,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupDrawerHeader() {
-        drawerHeaderBinding.drawerHeaderActionButton.setOnClickListener(view -> toggleServices());
+        drawerHeaderBinding.drawerHeaderActionButton.setVisibility(View.GONE);
 
         // If the current app name is bigger than the default "NewPipe" (7 chars),
         // let the text view grow a little more as well.
@@ -440,21 +433,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showServices() {
-        for (final StreamingService s : NewPipe.getServices()) {
+        try {
+            final StreamingService s = NewPipe.getService(0); // YouTube
             final String title = s.getServiceInfo().getName();
 
-            final MenuItem menuItem = drawerLayoutBinding.navigation.getMenu()
+            drawerLayoutBinding.navigation.getMenu()
                     .add(R.id.menu_services_group, s.getServiceId(), ORDER, title)
                     .setIcon(ServiceHelper.getIcon(s.getServiceId()));
 
-            // peertube specifics
-            if (s.getServiceId() == 3) {
-                enhancePeertubeMenu(menuItem);
-            }
+            drawerLayoutBinding.navigation.getMenu()
+                    .getItem(ServiceHelper.getSelectedServiceId(this))
+                    .setChecked(true);
+        } catch (final Exception ignored) {
         }
-        drawerLayoutBinding.navigation.getMenu()
-                .getItem(ServiceHelper.getSelectedServiceId(this))
-                .setChecked(true);
     }
 
     private void enhancePeertubeMenu(final MenuItem menuItem) {

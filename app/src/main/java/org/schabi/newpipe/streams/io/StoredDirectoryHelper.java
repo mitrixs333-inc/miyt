@@ -78,6 +78,39 @@ public class StoredDirectoryHelper {
         return createFile(filename, mime, false);
     }
 
+    public StoredDirectoryHelper createSubdirectory(final String dirName) {
+        if (isNullOrEmpty(dirName)) {
+            return this;
+        }
+        final String sanitized = dirName.replaceAll("[\\\\/:*?\"<>|]", "_");
+        if (docTree == null) {
+            final Path subPath = ioTree.resolve(sanitized);
+            try {
+                Files.createDirectories(subPath);
+                return new StoredDirectoryHelper(context, Uri.fromFile(subPath.toFile()), tag);
+            } catch (final Exception e) {
+                Log.e(TAG, "Error creating subfolder " + sanitized, e);
+                return this;
+            }
+        } else {
+            final DocumentFile existing = findFileSAFHelper(context, docTree, sanitized);
+            if (existing != null && existing.isDirectory()) {
+                try {
+                    return new StoredDirectoryHelper(context, existing.getUri(), tag);
+                } catch (final Exception ignored) {
+                }
+            }
+            final DocumentFile created = docTree.createDirectory(sanitized);
+            if (created != null) {
+                try {
+                    return new StoredDirectoryHelper(context, created.getUri(), tag);
+                } catch (final Exception ignored) {
+                }
+            }
+            return this;
+        }
+    }
+
     public StoredFileHelper createUniqueFile(final String name, final String mime) {
         final List<String> matches = new ArrayList<>();
         final String[] filename = splitFilename(name);

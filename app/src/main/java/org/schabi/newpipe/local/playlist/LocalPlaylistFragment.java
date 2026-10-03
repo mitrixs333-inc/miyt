@@ -409,7 +409,7 @@ public class LocalPlaylistFragment extends BaseLocalListFragment<List<PlaylistSt
                     Toast.LENGTH_SHORT).show();
             return;
         }
-        final PlaylistDownloadDialog dialog = PlaylistDownloadDialog.newInstance(entries);
+        final PlaylistDownloadDialog dialog = PlaylistDownloadDialog.newInstance(entries, name);
         dialog.show(getChildFragmentManager(), "PlaylistDownloadDialog");
     }
 

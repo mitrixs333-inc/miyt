@@ -35,8 +35,10 @@ import us.shandian.giga.service.DownloadManagerService.DownloadManagerBinder;
 
 public class PlaylistDownloadDialog extends DialogFragment {
     private static final String KEY_ITEMS = "key_items";
+    private static final String KEY_TITLE = "key_title";
 
     private List<PlaylistItemDownloadEntry> items = new ArrayList<>();
+    private String playlistTitle = "";
     private PlaylistDownloadAdapter adapter;
 
     private StoredDirectoryHelper mainStorageAudio = null;
@@ -49,10 +51,12 @@ public class PlaylistDownloadDialog extends DialogFragment {
     private Button downloadButton;
 
     public static PlaylistDownloadDialog newInstance(
-            @NonNull final List<PlaylistItemDownloadEntry> items) {
+            @NonNull final List<PlaylistItemDownloadEntry> items,
+            @Nullable final String playlistTitle) {
         final PlaylistDownloadDialog dialog = new PlaylistDownloadDialog();
         final Bundle args = new Bundle();
         args.putParcelableArrayList(KEY_ITEMS, new ArrayList<>(items));
+        args.putString(KEY_TITLE, playlistTitle);
         dialog.setArguments(args);
         return dialog;
     }
@@ -68,6 +72,7 @@ public class PlaylistDownloadDialog extends DialogFragment {
             if (list != null) {
                 items = list;
             }
+            playlistTitle = getArguments().getString(KEY_TITLE, "");
         }
 
         final Intent intent = new Intent(requireContext(), DownloadManagerService.class);
@@ -173,6 +178,7 @@ public class PlaylistDownloadDialog extends DialogFragment {
         PlaylistDownloadHelper.downloadPlaylistItems(
                 requireContext(),
                 selected,
+                playlistTitle,
                 qualitySpinner.getSelectedItemPosition(),
                 startPaused,
                 mainStorageVideo,

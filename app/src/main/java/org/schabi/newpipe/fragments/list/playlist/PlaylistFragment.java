@@ -282,7 +282,7 @@ public class PlaylistFragment extends BaseListInfoFragment<StreamInfoItem, Playl
                     Toast.LENGTH_SHORT).show();
             return;
         }
-        final PlaylistDownloadDialog dialog = PlaylistDownloadDialog.newInstance(entries);
+        final PlaylistDownloadDialog dialog = PlaylistDownloadDialog.newInstance(entries, name);
         dialog.show(getChildFragmentManager(), "PlaylistDownloadDialog");
     }
 

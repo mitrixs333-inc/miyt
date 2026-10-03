@@ -5,6 +5,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.isVisible
@@ -19,23 +20,38 @@ import org.schabi.newpipe.player.helper.PlayerHelper
 import org.schabi.newpipe.player.ui.MainPlayerUi
 import org.schabi.newpipe.util.ThemeHelper.getAndroidDimenPx
 
-/**
- * GestureListener for the player
- *
- * While [BasePlayerGestureListener] contains the logic behind the single gestures
- * this class focuses on the visual aspect like hiding and showing the controls or changing
- * volume/brightness during scrolling for specific events.
- */
 class MainPlayerGestureListener(
     private val playerUi: MainPlayerUi
 ) : BasePlayerGestureListener(playerUi), OnTouchListener {
     private var isMoving = false
+    private var isSpeedBoosted = false
+    private var originalSpeed = 1.0f
+
+    override fun onLongPress(e: MotionEvent) {
+        val portion = getDisplayPortion(e)
+        if (portion == DisplayPortion.LEFT || portion == DisplayPortion.RIGHT) {
+            if (!isSpeedBoosted && player.isPlaying) {
+                originalSpeed = player.playbackSpeed
+                player.playbackSpeed = 2.0f
+                isSpeedBoosted = true
+                Toast.makeText(player.context, "2x Speed", Toast.LENGTH_SHORT).show()
+            }
+        } else {
+            super.onLongPress(e)
+        }
+    }
 
     override fun onTouch(v: View, event: MotionEvent): Boolean {
         super.onTouch(v, event)
-        if (event.action == MotionEvent.ACTION_UP && isMoving) {
-            isMoving = false
-            onScrollEnd(event)
+        if (event.action == MotionEvent.ACTION_UP || event.action == MotionEvent.ACTION_CANCEL) {
+            if (isSpeedBoosted) {
+                player.playbackSpeed = originalSpeed
+                isSpeedBoosted = false
+            }
+            if (isMoving) {
+                isMoving = false
+                onScrollEnd(event)
+            }
         }
         return when (event.action) {
             MotionEvent.ACTION_DOWN, MotionEvent.ACTION_MOVE -> {
