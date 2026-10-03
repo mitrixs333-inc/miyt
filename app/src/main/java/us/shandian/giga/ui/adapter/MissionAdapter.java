@@ -117,7 +117,13 @@ public class MissionAdapter extends Adapter<ViewHolder> implements Handler.Callb
     private RecoverHelper mRecover;
     private final View mView;
     private final ArrayList<Mission> mHidden;
+    private final java.util.Set<Mission> mSelectedMissions = new java.util.HashSet<>();
+    private OnSelectionModeListener mSelectionListener;
     private Snackbar mSnackbar;
+
+    public interface OnSelectionModeListener {
+        void onSelectionCountChanged(int selectedCount);
+    }
 
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
@@ -142,6 +148,75 @@ public class MissionAdapter extends Adapter<ViewHolder> implements Handler.Callb
 
         checkEmptyMessageVisibility();
         onResume();
+    }
+
+    public void setOnSelectionModeListener(OnSelectionModeListener listener) {
+        mSelectionListener = listener;
+    }
+
+    public boolean isInSelectionMode() {
+        return !mSelectedMissions.isEmpty();
+    }
+
+    public void toggleSelection(Mission mission) {
+        if (mission == null) return;
+        if (mSelectedMissions.contains(mission)) {
+            mSelectedMissions.remove(mission);
+        } else {
+            mSelectedMissions.add(mission);
+        }
+        notifyDataSetChanged();
+        if (mSelectionListener != null) {
+            mSelectionListener.onSelectionCountChanged(mSelectedMissions.size());
+        }
+    }
+
+    public void selectAll() {
+        for (int i = 0; i < mIterator.getOldListSize(); i++) {
+            DownloadManager.MissionItem item = mIterator.getItem(i);
+            if (item != null && item.mission != null) {
+                mSelectedMissions.add(item.mission);
+            }
+        }
+        notifyDataSetChanged();
+        if (mSelectionListener != null) {
+            mSelectionListener.onSelectionCountChanged(mSelectedMissions.size());
+        }
+    }
+
+    public void deselectAll() {
+        mSelectedMissions.clear();
+        notifyDataSetChanged();
+        if (mSelectionListener != null) {
+            mSelectionListener.onSelectionCountChanged(0);
+        }
+    }
+
+    public void pauseSelected() {
+        for (Mission m : new ArrayList<>(mSelectedMissions)) {
+            if (m instanceof DownloadMission) {
+                mDownloadManager.pauseMission((DownloadMission) m);
+            }
+        }
+        deselectAll();
+    }
+
+    public void resumeSelected() {
+        for (Mission m : new ArrayList<>(mSelectedMissions)) {
+            if (m instanceof DownloadMission) {
+                mDownloadManager.resumeMission((DownloadMission) m);
+            }
+        }
+        deselectAll();
+    }
+
+    public void deleteSelected(boolean deleteFiles) {
+        for (Mission m : new ArrayList<>(mSelectedMissions)) {
+            mDeleter.append(m, deleteFiles);
+        }
+        deselectAll();
+        applyChanges();
+        checkMasterButtonsVisibility();
     }
 
     @Override
@@ -202,7 +277,13 @@ public class MissionAdapter extends Adapter<ViewHolder> implements Handler.Callb
         h.icon.setImageResource(Utility.getIconForFileType(type));
         h.name.setText(item.mission.storage.getName());
 
-        h.progress.setColors(Utility.getBackgroundForFileType(mContext, type), Utility.getForegroundForFileType(mContext, type));
+        boolean isSelected = mSelectedMissions.contains(item.mission);
+        h.itemView.setActivated(isSelected);
+        if (isSelected) {
+            h.progress.setColors(Color.parseColor("#400080FF"), Color.parseColor("#800080FF"));
+        } else {
+            h.progress.setColors(Utility.getBackgroundForFileType(mContext, type), Utility.getForegroundForFileType(mContext, type));
+        }
 
         if (h.item.mission instanceof DownloadMission) {
             DownloadMission mission = (DownloadMission) item.mission;
@@ -901,12 +982,23 @@ public class MissionAdapter extends Adapter<ViewHolder> implements Handler.Callb
             itemView.setHapticFeedbackEnabled(true);
 
             itemView.setOnClickListener(v -> {
-                if (item.mission instanceof FinishedMission)
+                if (isInSelectionMode()) {
+                    if (item != null && item.mission != null) {
+                        toggleSelection(item.mission);
+                    }
+                } else if (item != null && item.mission instanceof FinishedMission) {
                     viewWithFileProvider(item.mission);
+                }
             });
 
             itemView.setOnLongClickListener(v -> {
                 v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
+                if (isInSelectionMode()) {
+                    if (item != null && item.mission != null) {
+                        toggleSelection(item.mission);
+                        return true;
+                    }
+                }
                 showPopupMenu();
                 return true;
             });

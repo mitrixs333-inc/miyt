@@ -25,6 +25,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapterMenuWorkaround;
@@ -169,7 +170,11 @@ public class MainFragment extends BaseFragment implements TabLayout.OnTabSelecte
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        if (item.getItemId() == R.id.action_search) {
+        final int itemId = item.getItemId();
+        if (itemId == R.id.action_theme_toggle) {
+            showThemeSelectionDialog();
+            return true;
+        } else if (itemId == R.id.action_search) {
             try {
                 NavigationHelper.openSearchFragment(getFM(),
                         ServiceHelper.getSelectedServiceId(activity), "");
@@ -179,6 +184,38 @@ public class MainFragment extends BaseFragment implements TabLayout.OnTabSelecte
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showThemeSelectionDialog() {
+        final String[] themes = new String[] {
+                getString(R.string.light_theme_title),
+                getString(R.string.dark_theme_title),
+                getString(R.string.black_theme_title),
+                getString(R.string.neumorphism_theme_title),
+                getString(R.string.claymorphism_theme_title),
+                getString(R.string.neobrutalism_theme_title)
+        };
+        final String[] themeValues = new String[] {
+                getString(R.string.light_theme_key),
+                getString(R.string.dark_theme_key),
+                getString(R.string.black_theme_key),
+                getString(R.string.neumorphism_theme_key),
+                getString(R.string.claymorphism_theme_key),
+                getString(R.string.neobrutalism_theme_key)
+        };
+
+        new AlertDialog.Builder(requireContext())
+                .setTitle(R.string.theme_title)
+                .setItems(themes, (dialog, which) -> {
+                    final String selectedKey = themeValues[which];
+                    PreferenceManager.getDefaultSharedPreferences(requireContext())
+                            .edit()
+                            .putString(getString(R.string.theme_key), selectedKey)
+                            .apply();
+                    ThemeHelper.setDayNightMode(requireContext(), selectedKey);
+                    requireActivity().recreate();
+                })
+                .show();
     }
 
     /*//////////////////////////////////////////////////////////////////////////

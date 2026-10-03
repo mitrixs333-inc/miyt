@@ -56,6 +56,12 @@ public class MissionsFragment extends Fragment {
     private MenuItem mClear = null;
     private MenuItem mStart = null;
     private MenuItem mPause = null;
+    private MenuItem mStartSelected = null;
+    private MenuItem mPauseSelected = null;
+    private MenuItem mDeleteSelected = null;
+    private MenuItem mSelectAll = null;
+    private MenuItem mDeselectAll = null;
+    private int mSelectedCount = 0;
 
     private RecyclerView mList;
     private View mEmpty;
@@ -78,6 +84,7 @@ public class MissionsFragment extends Fragment {
             mBinder.clearDownloadNotifications();
 
             mAdapter = new MissionAdapter(mContext, mBinder.getDownloadManager(), mEmpty, getView());
+            mAdapter.setOnSelectionModeListener(MissionsFragment.this::onSelectionCountChanged);
 
             mAdapter.setRecover(MissionsFragment.this::recoverMission);
 
@@ -178,16 +185,74 @@ public class MissionsFragment extends Fragment {
         mClear = menu.findItem(R.id.clear_list);
         mStart = menu.findItem(R.id.start_downloads);
         mPause = menu.findItem(R.id.pause_downloads);
+        mStartSelected = menu.findItem(R.id.start_selected);
+        mPauseSelected = menu.findItem(R.id.pause_selected);
+        mDeleteSelected = menu.findItem(R.id.delete_selected);
+        mSelectAll = menu.findItem(R.id.select_all);
+        mDeselectAll = menu.findItem(R.id.deselect_all);
 
         if (mAdapter != null) setAdapterButtons();
+        updateSelectionMenuItems();
 
         super.onPrepareOptionsMenu(menu);
+    }
+
+    private void onSelectionCountChanged(int count) {
+        mSelectedCount = count;
+        if (getActivity() != null && getActivity() instanceof androidx.appcompat.app.AppCompatActivity) {
+            final var actionBar = ((androidx.appcompat.app.AppCompatActivity) getActivity()).getSupportActionBar();
+            if (actionBar != null) {
+                if (count > 0) {
+                    actionBar.setTitle(count + " selected");
+                } else {
+                    actionBar.setTitle(R.string.downloads_title);
+                }
+            }
+        }
+        if (getActivity() != null) {
+            getActivity().invalidateOptionsMenu();
+        }
+    }
+
+    private void updateSelectionMenuItems() {
+        boolean inSelection = mSelectedCount > 0;
+        if (mStartSelected != null) mStartSelected.setVisible(inSelection);
+        if (mPauseSelected != null) mPauseSelected.setVisible(inSelection);
+        if (mDeleteSelected != null) mDeleteSelected.setVisible(inSelection);
+        if (mSelectAll != null) mSelectAll.setVisible(inSelection);
+        if (mDeselectAll != null) mDeselectAll.setVisible(inSelection);
+
+        if (inSelection) {
+            if (mClear != null) mClear.setVisible(false);
+            if (mStart != null) mStart.setVisible(false);
+            if (mPause != null) mPause.setVisible(false);
+        }
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
-        if (itemId == R.id.switch_mode) {
+        if (itemId == R.id.start_selected) {
+            mAdapter.resumeSelected();
+            return true;
+        } else if (itemId == R.id.pause_selected) {
+            mAdapter.pauseSelected();
+            return true;
+        } else if (itemId == R.id.delete_selected) {
+            new AlertDialog.Builder(mContext)
+                    .setTitle(R.string.delete_selected)
+                    .setMessage(R.string.confirm_prompt)
+                    .setNegativeButton(R.string.cancel, null)
+                    .setPositiveButton(R.string.ok, (dialog, which) -> mAdapter.deleteSelected(true))
+                    .show();
+            return true;
+        } else if (itemId == R.id.select_all) {
+            mAdapter.selectAll();
+            return true;
+        } else if (itemId == R.id.deselect_all) {
+            mAdapter.deselectAll();
+            return true;
+        } else if (itemId == R.id.switch_mode) {
             mLinear = !mLinear;
             updateList();
             return true;

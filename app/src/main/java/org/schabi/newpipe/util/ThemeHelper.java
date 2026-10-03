@@ -86,6 +86,9 @@ public final class ThemeHelper {
         final Resources res = context.getResources();
 
         return selectedThemeKey.equals(res.getString(R.string.light_theme_key))
+                || selectedThemeKey.equals(res.getString(R.string.neumorphism_theme_key))
+                || selectedThemeKey.equals(res.getString(R.string.claymorphism_theme_key))
+                || selectedThemeKey.equals(res.getString(R.string.neobrutalism_theme_key))
                 || (selectedThemeKey.equals(res.getString(R.string.auto_device_theme_key))
                 && !isDeviceDarkThemeEnabled(context));
     }
@@ -126,16 +129,24 @@ public final class ThemeHelper {
         final Resources res = context.getResources();
         final String lightThemeKey = res.getString(R.string.light_theme_key);
         final String blackThemeKey = res.getString(R.string.black_theme_key);
+        final String neumorphismThemeKey = res.getString(R.string.neumorphism_theme_key);
+        final String claymorphismThemeKey = res.getString(R.string.claymorphism_theme_key);
+        final String neobrutalismThemeKey = res.getString(R.string.neobrutalism_theme_key);
         final String automaticDeviceThemeKey = res.getString(R.string.auto_device_theme_key);
 
         final String selectedThemeKey = getSelectedThemeKey(context);
-
 
         int baseTheme = R.style.DarkTheme; // default to dark theme
         if (selectedThemeKey.equals(lightThemeKey)) {
             baseTheme = R.style.LightTheme;
         } else if (selectedThemeKey.equals(blackThemeKey)) {
             baseTheme = R.style.BlackTheme;
+        } else if (selectedThemeKey.equals(neumorphismThemeKey)) {
+            baseTheme = R.style.NeumorphismTheme;
+        } else if (selectedThemeKey.equals(claymorphismThemeKey)) {
+            baseTheme = R.style.ClaymorphismTheme;
+        } else if (selectedThemeKey.equals(neobrutalismThemeKey)) {
+            baseTheme = R.style.NeobrutalismTheme;
         } else if (selectedThemeKey.equals(automaticDeviceThemeKey)) {
 
             if (isDeviceDarkThemeEnabled(context)) {
@@ -164,7 +175,10 @@ public final class ThemeHelper {
         }
 
         String themeName = "DarkTheme"; // default
-        if (baseTheme == R.style.LightTheme) {
+        if (baseTheme == R.style.LightTheme
+                || baseTheme == R.style.NeumorphismTheme
+                || baseTheme == R.style.ClaymorphismTheme
+                || baseTheme == R.style.NeobrutalismTheme) {
             themeName = "LightTheme";
         } else if (baseTheme == R.style.BlackTheme) {
             themeName = "BlackTheme";
@@ -193,6 +207,12 @@ public final class ThemeHelper {
             return R.style.LightSettingsTheme;
         } else if (selectedTheme.equals(blackTheme)) {
             return R.style.BlackSettingsTheme;
+        } else if (selectedTheme.equals(res.getString(R.string.neumorphism_theme_key))) {
+            return R.style.NeumorphismSettingsTheme;
+        } else if (selectedTheme.equals(res.getString(R.string.claymorphism_theme_key))) {
+            return R.style.ClaymorphismSettingsTheme;
+        } else if (selectedTheme.equals(res.getString(R.string.neobrutalism_theme_key))) {
+            return R.style.NeobrutalismSettingsTheme;
         } else if (selectedTheme.equals(automaticDeviceTheme)) {
             if (isDeviceDarkThemeEnabled(context)) {
                 // use the dark theme variant preferred by the user
@@ -322,7 +342,10 @@ public final class ThemeHelper {
     public static void setDayNightMode(final Context context, final String selectedThemeKey) {
         final Resources res = context.getResources();
 
-        if (selectedThemeKey.equals(res.getString(R.string.light_theme_key))) {
+        if (selectedThemeKey.equals(res.getString(R.string.light_theme_key))
+                || selectedThemeKey.equals(res.getString(R.string.neumorphism_theme_key))
+                || selectedThemeKey.equals(res.getString(R.string.claymorphism_theme_key))
+                || selectedThemeKey.equals(res.getString(R.string.neobrutalism_theme_key))) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         } else if (selectedThemeKey.equals(res.getString(R.string.dark_theme_key))
                 || selectedThemeKey.equals(res.getString(R.string.black_theme_key))) {

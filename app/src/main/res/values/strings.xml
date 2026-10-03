@@ -79,6 +79,9 @@
     <string name="light_theme_title">Light</string>
     <string name="dark_theme_title">Dark</string>
     <string name="black_theme_title">Black</string>
+    <string name="neumorphism_theme_title">Neumorphism</string>
+    <string name="claymorphism_theme_title">Claymorphism</string>
+    <string name="neobrutalism_theme_title">Neobrutalism</string>
     <string name="popup_remember_size_pos_title">Remember popup properties</string>
     <string name="popup_remember_size_pos_summary">Remember last size and position of popup</string>
     <string name="use_inexact_seek_title">Use fast inexact seek</string>
@@ -467,6 +470,9 @@
     <string name="select_all">Select all</string>
     <string name="deselect_all">Deselect all</string>
     <string name="download_quality">Download quality</string>
+    <string name="pause_selected">Pause selected</string>
+    <string name="start_selected">Resume selected</string>
+    <string name="delete_selected">Delete selected</string>
     <string name="processing_may_take_a_moment">Processing… May take a moment</string>
     <string name="mute">Mute</string>
     <string name="unmute">Unmute</string>
