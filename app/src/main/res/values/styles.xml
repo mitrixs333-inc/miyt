@@ -96,6 +96,7 @@
         <item name="card_item_background_color">@color/neumorphism_card_background_color</item>
         <item name="card_item_contrast_color">@color/neumorphism_card_contrast_color</item>
         <item name="border_color">@color/neumorphism_card_contrast_color</item>
+        <item name="selectableItemBackground">@drawable/card_bg_neumorphism</item>
     </style>
     <style name="Base.NeumorphismTheme" parent="Base.V21.NeumorphismTheme" />
     <style name="NeumorphismTheme" parent="Base.NeumorphismTheme"/>
@@ -110,20 +111,22 @@
         <item name="card_item_background_color">@color/claymorphism_card_background_color</item>
         <item name="card_item_contrast_color">@color/claymorphism_card_contrast_color</item>
         <item name="border_color">@color/claymorphism_card_contrast_color</item>
+        <item name="selectableItemBackground">@drawable/card_bg_claymorphism</item>
     </style>
     <style name="Base.ClaymorphismTheme" parent="Base.V21.ClaymorphismTheme" />
     <style name="ClaymorphismTheme" parent="Base.ClaymorphismTheme"/>
 
     <!-- Neobrutalism Theme -->
     <style name="Base.V21.NeobrutalismTheme" parent="LightTheme">
-        <item name="colorPrimary">@color/neobrutalism_primary_color</item>
-        <item name="colorPrimaryDark">@color/neobrutalism_primary_color</item>
-        <item name="colorAccent">@color/neobrutalism_accent_color</item>
+        <item name="colorPrimary">#FF0000</item>
+        <item name="colorPrimaryDark">#FF0000</item>
+        <item name="colorAccent">#FF0000</item>
         <item name="android:windowBackground">@color/neobrutalism_background_color</item>
         <item name="windowBackground">@color/neobrutalism_background_color</item>
         <item name="card_item_background_color">@color/neobrutalism_card_background_color</item>
         <item name="card_item_contrast_color">@color/neobrutalism_card_contrast_color</item>
-        <item name="border_color">@color/neobrutalism_border_color</item>
+        <item name="border_color">#000000</item>
+        <item name="selectableItemBackground">@drawable/card_bg_neobrutalism</item>
     </style>
     <style name="Base.NeobrutalismTheme" parent="Base.V21.NeobrutalismTheme" />
     <style name="NeobrutalismTheme" parent="Base.NeobrutalismTheme"/>

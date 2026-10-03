@@ -189,7 +189,6 @@ public class MainFragment extends BaseFragment implements TabLayout.OnTabSelecte
     private void showThemeSelectionDialog() {
         final String[] themes = new String[] {
                 getString(R.string.light_theme_title),
-                getString(R.string.dark_theme_title),
                 getString(R.string.black_theme_title),
                 getString(R.string.neumorphism_theme_title),
                 getString(R.string.claymorphism_theme_title),
@@ -197,7 +196,6 @@ public class MainFragment extends BaseFragment implements TabLayout.OnTabSelecte
         };
         final String[] themeValues = new String[] {
                 getString(R.string.light_theme_key),
-                getString(R.string.dark_theme_key),
                 getString(R.string.black_theme_key),
                 getString(R.string.neumorphism_theme_key),
                 getString(R.string.claymorphism_theme_key),

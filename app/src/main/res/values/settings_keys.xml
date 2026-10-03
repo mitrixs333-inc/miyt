@@ -264,7 +264,6 @@
     <string name="default_night_theme_value">@string/dark_theme_key</string>
     <string-array name="theme_values_list">
         <item>@string/light_theme_key</item>
-        <item>@string/dark_theme_key</item>
         <item>@string/black_theme_key</item>
         <item>@string/neumorphism_theme_key</item>
         <item>@string/claymorphism_theme_key</item>
@@ -273,7 +272,6 @@
     </string-array>
     <string-array name="theme_description_list">
         <item>@string/light_theme_title</item>
-        <item>@string/dark_theme_title</item>
         <item>@string/black_theme_title</item>
         <item>@string/neumorphism_theme_title</item>
         <item>@string/claymorphism_theme_title</item>
