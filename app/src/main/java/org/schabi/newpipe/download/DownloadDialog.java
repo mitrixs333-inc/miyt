@@ -114,8 +114,10 @@ public class DownloadDialog extends DialogFragment
     private StoredDirectoryHelper mainStorageVideo = null;
     private DownloadManager downloadManager = null;
     private MenuItem okButton = null;
+    private MenuItem addButton = null;
     private Context context = null;
     private boolean askForSavePath;
+    private boolean startDownloadPaused = false;
 
     private AudioTrackAdapter audioTrackAdapter;
     private StreamItemAdapter<AudioStream, Stream> audioStreamsAdapter;
@@ -233,6 +235,9 @@ public class DownloadDialog extends DialogFragment
                 askForSavePath = mgr.askForSavePath();
 
                 okButton.setEnabled(true);
+                if (addButton != null) {
+                    addButton.setEnabled(true);
+                }
 
                 context.unbindService(this);
             }
@@ -347,8 +352,18 @@ public class DownloadDialog extends DialogFragment
         okButton = toolbar.getMenu().findItem(R.id.okay);
         okButton.setEnabled(false); // disable until the download service connection is done
 
+        addButton = toolbar.getMenu().findItem(R.id.add);
+        if (addButton != null) {
+            addButton.setEnabled(downloadManager != null);
+        }
+
         toolbar.setOnMenuItemClickListener(item -> {
             if (item.getItemId() == R.id.okay) {
+                startDownloadPaused = false;
+                prepareSelectedDownload();
+                return true;
+            } else if (item.getItemId() == R.id.add) {
+                startDownloadPaused = true;
                 prepareSelectedDownload();
                 return true;
             }
@@ -1117,9 +1132,12 @@ public class DownloadDialog extends DialogFragment
         }
 
         DownloadManagerService.startMission(context, urls, storage, kind, threads,
-                currentInfo, psName, psArgs, nearLength, new ArrayList<>(recoveryInfo));
+                currentInfo, psName, psArgs, nearLength, new ArrayList<>(recoveryInfo),
+                startDownloadPaused);
 
-        Toast.makeText(context, getString(R.string.download_has_started),
+        Toast.makeText(context,
+                getString(startDownloadPaused
+                        ? R.string.download_added_to_queue : R.string.download_has_started),
                 Toast.LENGTH_SHORT).show();
 
         dismiss();

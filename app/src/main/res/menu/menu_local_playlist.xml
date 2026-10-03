@@ -3,6 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_item_download_playlist"
+        android:icon="@drawable/ic_file_download"
+        android:title="@string/download_playlist"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/menu_item_share_playlist"
         android:icon="@drawable/ic_share"
         android:title="@string/share"
