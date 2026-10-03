@@ -88,40 +88,42 @@
 
     <!-- Neumorphism Theme -->
     <style name="Base.V21.NeumorphismTheme" parent="LightTheme">
-        <item name="colorPrimary">#6C5CE7</item>
-        <item name="colorPrimaryDark">#5B4BC4</item>
-        <item name="colorAccent">#6C5CE7</item>
-        <item name="android:windowBackground">#E0E5EC</item>
-        <item name="windowBackground">#E0E5EC</item>
-        <item name="card_item_background_color">#E0E5EC</item>
-        <item name="card_item_contrast_color">#D1D9E6</item>
+        <item name="colorPrimary">@color/neumorphism_accent_color</item>
+        <item name="colorPrimaryDark">@color/neumorphism_accent_color</item>
+        <item name="colorAccent">@color/neumorphism_accent_color</item>
+        <item name="android:windowBackground">@color/neumorphism_background_color</item>
+        <item name="windowBackground">@color/neumorphism_background_color</item>
+        <item name="card_item_background_color">@color/neumorphism_card_background_color</item>
+        <item name="card_item_contrast_color">@color/neumorphism_card_contrast_color</item>
+        <item name="border_color">@color/neumorphism_card_contrast_color</item>
     </style>
     <style name="Base.NeumorphismTheme" parent="Base.V21.NeumorphismTheme" />
     <style name="NeumorphismTheme" parent="Base.NeumorphismTheme"/>
 
     <!-- Claymorphism Theme -->
     <style name="Base.V21.ClaymorphismTheme" parent="LightTheme">
-        <item name="colorPrimary">#FF7675</item>
-        <item name="colorPrimaryDark">#D63031</item>
-        <item name="colorAccent">#FF7675</item>
-        <item name="android:windowBackground">#F0F4F8</item>
-        <item name="windowBackground">#F0F4F8</item>
-        <item name="card_item_background_color">#FFFFFF</item>
-        <item name="card_item_contrast_color">#E2E8F0</item>
+        <item name="colorPrimary">@color/claymorphism_accent_color</item>
+        <item name="colorPrimaryDark">@color/claymorphism_accent_color</item>
+        <item name="colorAccent">@color/claymorphism_accent_color</item>
+        <item name="android:windowBackground">@color/claymorphism_background_color</item>
+        <item name="windowBackground">@color/claymorphism_background_color</item>
+        <item name="card_item_background_color">@color/claymorphism_card_background_color</item>
+        <item name="card_item_contrast_color">@color/claymorphism_card_contrast_color</item>
+        <item name="border_color">@color/claymorphism_card_contrast_color</item>
     </style>
     <style name="Base.ClaymorphismTheme" parent="Base.V21.ClaymorphismTheme" />
     <style name="ClaymorphismTheme" parent="Base.ClaymorphismTheme"/>
 
     <!-- Neobrutalism Theme -->
     <style name="Base.V21.NeobrutalismTheme" parent="LightTheme">
-        <item name="colorPrimary">#FFDE59</item>
-        <item name="colorPrimaryDark">#E5C743</item>
-        <item name="colorAccent">#FF5757</item>
-        <item name="android:windowBackground">#FFFDF0</item>
-        <item name="windowBackground">#FFFDF0</item>
-        <item name="card_item_background_color">#FFFFFF</item>
-        <item name="card_item_contrast_color">#FFDE59</item>
-        <item name="border_color">#000000</item>
+        <item name="colorPrimary">@color/neobrutalism_primary_color</item>
+        <item name="colorPrimaryDark">@color/neobrutalism_primary_color</item>
+        <item name="colorAccent">@color/neobrutalism_accent_color</item>
+        <item name="android:windowBackground">@color/neobrutalism_background_color</item>
+        <item name="windowBackground">@color/neobrutalism_background_color</item>
+        <item name="card_item_background_color">@color/neobrutalism_card_background_color</item>
+        <item name="card_item_contrast_color">@color/neobrutalism_card_contrast_color</item>
+        <item name="border_color">@color/neobrutalism_border_color</item>
     </style>
     <style name="Base.NeobrutalismTheme" parent="Base.V21.NeobrutalismTheme" />
     <style name="NeobrutalismTheme" parent="Base.NeobrutalismTheme"/>
@@ -172,13 +174,13 @@
         <item name="colorAccent">@color/black_settings_accent_color</item>
     </style>
     <style name="NeumorphismSettingsTheme" parent="LightSettingsTheme">
-        <item name="android:windowBackground">#E0E5EC</item>
+        <item name="android:windowBackground">@color/neumorphism_background_color</item>
     </style>
     <style name="ClaymorphismSettingsTheme" parent="LightSettingsTheme">
-        <item name="android:windowBackground">#F0F4F8</item>
+        <item name="android:windowBackground">@color/claymorphism_background_color</item>
     </style>
     <style name="NeobrutalismSettingsTheme" parent="LightSettingsTheme">
-        <item name="android:windowBackground">#FFFDF0</item>
+        <item name="android:windowBackground">@color/neobrutalism_background_color</item>
     </style>
 
     <!-- Router Activity -->

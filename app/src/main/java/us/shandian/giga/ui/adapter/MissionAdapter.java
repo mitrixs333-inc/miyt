@@ -932,6 +932,7 @@ public class MissionAdapter extends Adapter<ViewHolder> implements Handler.Callb
         ProgressDrawable progress;
 
         PopupMenu popupMenu;
+        MenuItem selectItem;
         MenuItem retry;
         MenuItem cancel;
         MenuItem start;
@@ -968,6 +969,7 @@ public class MissionAdapter extends Adapter<ViewHolder> implements Handler.Callb
             button.setOnClickListener(v -> showPopupMenu());
 
             Menu menu = popupMenu.getMenu();
+            selectItem = menu.findItem(R.id.select_item);
             retry = menu.findItem(R.id.retry);
             cancel = menu.findItem(R.id.cancel);
             start = menu.findItem(R.id.start);
@@ -993,11 +995,9 @@ public class MissionAdapter extends Adapter<ViewHolder> implements Handler.Callb
 
             itemView.setOnLongClickListener(v -> {
                 v.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-                if (isInSelectionMode()) {
-                    if (item != null && item.mission != null) {
-                        toggleSelection(item.mission);
-                        return true;
-                    }
+                if (item != null && item.mission != null) {
+                    toggleSelection(item.mission);
+                    return true;
                 }
                 showPopupMenu();
                 return true;
@@ -1053,6 +1053,10 @@ public class MissionAdapter extends Adapter<ViewHolder> implements Handler.Callb
                 open.setVisible(true);
                 delete.setVisible(true);
                 checksum.setVisible(true);
+            }
+
+            if (selectItem != null) {
+                selectItem.setVisible(true);
             }
 
             if (item.mission.source != null && !item.mission.source.isEmpty()) {

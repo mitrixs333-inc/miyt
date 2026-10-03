@@ -49,6 +49,26 @@
     <color name="black_card_item_contrast_color">#202020</color>
     <color name="black_border_color">#25FFFFFF</color>
 
+    <!-- Neumorphism Theme Colors -->
+    <color name="neumorphism_background_color">#E3E7EE</color>
+    <color name="neumorphism_card_background_color">#EDF1F7</color>
+    <color name="neumorphism_card_contrast_color">#D1D7E0</color>
+    <color name="neumorphism_accent_color">#D32F2F</color>
+
+    <!-- Claymorphism Theme Colors -->
+    <color name="claymorphism_background_color">#E5D8C5</color>
+    <color name="claymorphism_card_background_color">#F7EFE0</color>
+    <color name="claymorphism_card_contrast_color">#D8C7B0</color>
+    <color name="claymorphism_accent_color">#B24C3A</color>
+
+    <!-- Neobrutalism Theme Colors -->
+    <color name="neobrutalism_background_color">#CCCCCC</color>
+    <color name="neobrutalism_card_background_color">#FFFFFF</color>
+    <color name="neobrutalism_card_contrast_color">#EEEEEE</color>
+    <color name="neobrutalism_primary_color">#FF0000</color>
+    <color name="neobrutalism_accent_color">#FF0000</color>
+    <color name="neobrutalism_border_color">#000000</color>
+
     <!-- Miscellaneous -->
     <color name="queue_background_color">@color/dark_queue_background_color</color>
     <color name="drawer_header_font_color">#F2FFFFFF</color>
