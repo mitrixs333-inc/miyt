@@ -228,6 +228,16 @@ public class DownloadManager {
      * @param mission the new download mission to add and run (if possible)
      */
     void startMission(DownloadMission mission) {
+        startMission(mission, false);
+    }
+
+    /**
+     * Start a new download mission
+     *
+     * @param mission the new download mission to add
+     * @param startPaused if true, add to queue in paused state
+     */
+    void startMission(DownloadMission mission, boolean startPaused) {
         synchronized (this) {
             mission.timestamp = System.currentTimeMillis();
             mission.mHandler = mHandler;
@@ -262,7 +272,7 @@ public class DownloadManager {
                 return;
             }
 
-            boolean start = !mPrefQueueLimit || getRunningMissionsCount() < 1;
+            boolean start = !startPaused && (!mPrefQueueLimit || getRunningMissionsCount() < 1);
 
             if (canDownloadInCurrentNetwork() && start) {
                 mission.start();

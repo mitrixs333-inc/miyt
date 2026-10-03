@@ -73,6 +73,7 @@ public class DownloadManagerService extends Service {
     private static final String EXTRA_URLS = "DownloadManagerService.extra.urls";
     private static final String EXTRA_KIND = "DownloadManagerService.extra.kind";
     private static final String EXTRA_THREADS = "DownloadManagerService.extra.threads";
+    private static final String EXTRA_START_PAUSED = "DownloadManagerService.extra.startPaused";
     private static final String EXTRA_POSTPROCESSING_NAME = "DownloadManagerService.extra.postprocessingName";
     private static final String EXTRA_POSTPROCESSING_ARGS = "DownloadManagerService.extra.postprocessingArgs";
     private static final String EXTRA_NEAR_LENGTH = "DownloadManagerService.extra.nearLength";
@@ -363,11 +364,21 @@ public class DownloadManagerService extends Service {
                                     char kind, int threads, StreamInfo streamInfo, String psName,
                                     String[] psArgs, long nearLength,
                                     ArrayList<MissionRecoveryInfo> recoveryInfo) {
+        startMission(context, urls, storage, kind, threads, streamInfo, psName, psArgs, nearLength,
+                recoveryInfo, false);
+    }
+
+    public static void startMission(Context context, String[] urls, StoredFileHelper storage,
+                                    char kind, int threads, StreamInfo streamInfo, String psName,
+                                    String[] psArgs, long nearLength,
+                                    ArrayList<MissionRecoveryInfo> recoveryInfo,
+                                    boolean startPaused) {
         final Intent intent = new Intent(context, DownloadManagerService.class)
                 .setAction(Intent.ACTION_RUN)
                 .putExtra(EXTRA_URLS, urls)
                 .putExtra(EXTRA_KIND, kind)
                 .putExtra(EXTRA_THREADS, threads)
+                .putExtra(EXTRA_START_PAUSED, startPaused)
                 .putExtra(EXTRA_POSTPROCESSING_NAME, psName)
                 .putExtra(EXTRA_POSTPROCESSING_ARGS, psArgs)
                 .putExtra(EXTRA_NEAR_LENGTH, nearLength)
@@ -386,6 +397,7 @@ public class DownloadManagerService extends Service {
         Uri parentPath = IntentCompat.getParcelableExtra(intent, EXTRA_PARENT_PATH, Uri.class);
         int threads = intent.getIntExtra(EXTRA_THREADS, 1);
         char kind = intent.getCharExtra(EXTRA_KIND, '?');
+        boolean startPaused = intent.getBooleanExtra(EXTRA_START_PAUSED, false);
         String psName = intent.getStringExtra(EXTRA_POSTPROCESSING_NAME);
         String[] psArgs = intent.getStringArrayExtra(EXTRA_POSTPROCESSING_ARGS);
         long nearLength = intent.getLongExtra(EXTRA_NEAR_LENGTH, 0);
@@ -419,7 +431,7 @@ public class DownloadManagerService extends Service {
 
         handleConnectivityState(true);// first check the actual network status
 
-        mManager.startMission(mission);
+        mManager.startMission(mission, startPaused);
     }
 
     public void notifyFinishedDownload(String name) {

@@ -461,6 +461,12 @@
     <string name="rename_playlist">Rename</string>
     <string name="name">Name</string>
     <string name="add_to_playlist">Add to playlist</string>
+    <string name="add">Add</string>
+    <string name="download_added_to_queue">Download added to queue</string>
+    <string name="download_playlist">Download playlist</string>
+    <string name="select_all">Select all</string>
+    <string name="deselect_all">Deselect all</string>
+    <string name="download_quality">Download quality</string>
     <string name="processing_may_take_a_moment">Processing… May take a moment</string>
     <string name="mute">Mute</string>
     <string name="unmute">Unmute</string>

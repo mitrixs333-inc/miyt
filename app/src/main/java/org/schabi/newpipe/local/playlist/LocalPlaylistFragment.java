@@ -39,9 +39,12 @@ import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 import org.schabi.newpipe.NewPipeDatabase;
 import org.schabi.newpipe.R;
+
 import org.schabi.newpipe.database.LocalItem;
 import org.schabi.newpipe.database.playlist.PlaylistStreamEntry;
 import org.schabi.newpipe.database.playlist.model.PlaylistEntity;
+import org.schabi.newpipe.download.PlaylistDownloadDialog;
+import org.schabi.newpipe.download.PlaylistItemDownloadEntry;
 import org.schabi.newpipe.database.stream.model.StreamEntity;
 import org.schabi.newpipe.databinding.DialogEditTextBinding;
 import org.schabi.newpipe.databinding.LocalPlaylistHeaderBinding;
@@ -372,7 +375,9 @@ public class LocalPlaylistFragment extends BaseLocalListFragment<List<PlaylistSt
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-        if (item.getItemId() == R.id.menu_item_share_playlist) {
+        if (item.getItemId() == R.id.menu_item_download_playlist) {
+            openPlaylistDownloadDialog();
+        } else if (item.getItemId() == R.id.menu_item_share_playlist) {
             createShareConfirmationDialog();
         } else if (item.getItemId() == R.id.menu_item_rename_playlist) {
             createRenameDialog();
@@ -384,6 +389,28 @@ public class LocalPlaylistFragment extends BaseLocalListFragment<List<PlaylistSt
             return super.onOptionsItemSelected(item);
         }
         return true;
+    }
+
+    private void openPlaylistDownloadDialog() {
+        if (itemListAdapter == null || itemListAdapter.getItemsList().isEmpty()) {
+            Toast.makeText(getContext(), R.string.no_streams_available_download,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        final List<PlaylistItemDownloadEntry> entries = new ArrayList<>();
+        for (final LocalItem item : itemListAdapter.getItemsList()) {
+            if (item instanceof PlaylistStreamEntry) {
+                entries.add(PlaylistItemDownloadEntry
+                        .fromPlaylistStreamEntry((PlaylistStreamEntry) item));
+            }
+        }
+        if (entries.isEmpty()) {
+            Toast.makeText(getContext(), R.string.no_streams_available_download,
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+        final PlaylistDownloadDialog dialog = PlaylistDownloadDialog.newInstance(entries);
+        dialog.show(getChildFragmentManager(), "PlaylistDownloadDialog");
     }
 
     /**
